@@ -24,12 +24,13 @@ void swap(int *first, int *second)
  *
  * Return: the pivot position as integer
  */
-int partition(int *array, size_t size)
+int partition(int *array, int low, int high)
 {
-	size_t pivot = size - 1;
-	size_t i = 0, j;
+	int pivot = high;
+	int i = low;
+	int j;
 
-	for (j = 0; j < size - 1; j++)
+	for (j = low; j < high; j++)
 	{
 		if (array[j] <= array[pivot])
 		{
@@ -37,26 +38,40 @@ int partition(int *array, size_t size)
 			i++;
 		}
 	}
-	swap(&array[i], &array[size - 1]);
+	swap(&array[i], &array[high]);
 	return (i);
 }
 
 /**
- * quick_sort - sorts recursively an array of integer
+ * quick_sort_lumoto - sorts recursively an array of integer
  * @array: the given array of integer
  * @low: the lowest value of the array
  * @high: the highest value of the array
+ * @size: the size of the array
+ *
+ * Return: void
+ */
+void quick_sort_lumoto(int *array, int low, int high, const size_t size)
+{
+	size_t prt;
+
+	if (low < high)
+	{
+		prt = partition(array, low, high);
+		print_array(array, size);
+		quick_sort_lumoto(array, low, prt - 1, size);
+		quick_sort_lumoto(array, prt + 1, high, size);
+	}
+}
+
+/**
+ * quick_sort - sorts an array of integers
+ * @array: the given array of integers
+ * @size: the size of the array
  *
  * Return: void
  */
 void quick_sort(int *array, size_t size)
 {
-	size_t prt;
-
-	prt = partition(array, size);
-	if (prt > 1)
-		quick_sort(array, prt - 1);
-	if (prt < size - 2)
-		quick_sort(array + prt + 1, size - 1 - prt);
-	print_array(array, size);
+	quick_sort_lumoto(array, 0, size - 1, size);
 }
