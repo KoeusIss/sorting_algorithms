@@ -24,7 +24,7 @@ void swap(int *first, int *second)
  *
  * Return: the pivot position as integer
  */
-int partition(int *array, int low, int high)
+int partition(int *array, int low, int high, size_t size)
 {
 	int pivot = high;
 	int i = low;
@@ -39,6 +39,7 @@ int partition(int *array, int low, int high)
 		}
 	}
 	swap(&array[i], &array[high]);
+	print_array(array, size);
 	return (i);
 }
 
@@ -51,13 +52,13 @@ int partition(int *array, int low, int high)
  *
  * Return: void
  */
-void quick_sort_lumoto(int *array, int low, int high, const size_t size)
+void quick_sort_lumoto(int *array, int low, int high, size_t size)
 {
 	size_t prt;
 
 	if (low < high)
 	{
-		prt = partition(array, low, high);
+		prt = partition(array, low, high, size);
 		print_array(array, size);
 		quick_sort_lumoto(array, low, prt - 1, size);
 		quick_sort_lumoto(array, prt + 1, high, size);
