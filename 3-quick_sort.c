@@ -21,6 +21,7 @@ void swap(int *first, int *second)
  * @array: the given array
  * @low: the lowest value of the array
  * @high: the highest value of the array
+ * @size: the size of the array
  *
  * Return: the pivot position as integer
  */
@@ -59,7 +60,6 @@ void quick_sort_lumoto(int *array, int low, int high, size_t size)
 	if (low < high)
 	{
 		prt = partition(array, low, high, size);
-		print_array(array, size);
 		quick_sort_lumoto(array, low, prt - 1, size);
 		quick_sort_lumoto(array, prt + 1, high, size);
 	}
@@ -74,5 +74,6 @@ void quick_sort_lumoto(int *array, int low, int high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	quick_sort_lumoto(array, 0, size - 1, size);
+	if (array)
+		quick_sort_lumoto(array, 0, size - 1, size);
 }
