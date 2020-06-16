@@ -1,0 +1,66 @@
+#include "sort.h"
+
+
+/**
+ * swap_node - swaps doubly linked list node
+ * @first: the first node
+ * @second: the second node
+ *
+ * Return: void
+ */
+void swap_node(listint_t **first, listint_t **second)
+{
+	if ((*first)->prev)
+		(*first)->prev->next = *second;
+	if ((*second)->next)
+		(*second)->next->prev = *first;
+	(*first)->next = (*second)->next;
+	(*second)->prev = (*first)->prev;
+	(*second)->next = *first;
+	(*first)->prev = *second;
+}
+
+/**
+ * cocktail_sort - sorts doubly linked list
+ * @list: the given doubly linked list
+ *
+ * Return: void
+ */
+void cocktail_sort_list(listint_t **list)
+{
+	listint_t *left, *right;
+	int swapped;
+
+	left = *list;
+
+	do {
+		swapped = 0;
+		while (left->next)
+		{
+			right = left->next;
+			if (left->n > right->n)
+			{
+				swap_node(&left, &right);
+				print_list(*list);
+				swapped = 1;
+			}
+			else
+				left = left->next;
+		}
+		right = left->prev;
+		while (right->prev)
+		{
+			left = right->prev;
+			if (right->n < left->n)
+			{
+				if (!left->prev)
+					*list = right;
+				swap_node(&left, &right);
+				print_list(*list);
+				swapped = 1;
+			}
+			else
+				right = right->prev;
+		}
+	} while (swapped);
+}
