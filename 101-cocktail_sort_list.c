@@ -21,7 +21,7 @@ void swap_node(listint_t **first, listint_t **second)
 }
 
 /**
- * cocktail_sort - sorts doubly linked list
+ * cocktail_sort_list - sorts doubly linked list
  * @list: the given doubly linked list
  *
  * Return: void
@@ -31,8 +31,10 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *left, *right;
 	int swapped;
 
-	left = *list;
+	if (!list || !*list)
+		return;
 
+	left = *list;
 	do {
 		swapped = 0;
 		while (left->next)
