@@ -28,14 +28,15 @@ void swap(int *first, int *second)
 int partition(int *array, int low, int high, size_t size)
 {
 	int pivot = high;
-	int i = low;
-	int j;
+	int i = low, j;
 
 	for (j = low; j < high; j++)
 	{
 		if (array[j] <= array[pivot])
 		{
 			swap(&array[i], &array[j]);
+			if (i != j)
+				print_array(array, size);
 			i++;
 		}
 	}
@@ -74,6 +75,7 @@ void quick_sort_lumoto(int *array, int low, int high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array)
-		quick_sort_lumoto(array, 0, size - 1, size);
+	if (!array || !size)
+		return;
+	quick_sort_lumoto(array, 0, size - 1, size);
 }
