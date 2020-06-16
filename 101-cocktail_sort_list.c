@@ -43,6 +43,8 @@ void cocktail_sort_list(listint_t **list)
 			if (left->n > right->n)
 			{
 				swap_node(&left, &right);
+				if (!right->prev)
+					*list = right;
 				print_list(*list);
 				swapped = 1;
 			}
